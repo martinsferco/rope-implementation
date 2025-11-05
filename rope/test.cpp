@@ -4,13 +4,19 @@
 #include <assert.h>
 #include <string>
 #include <set>
+#include <stdio.h>
+
+void test_rope_sum();
+void test_rope_int_sum();
+void test_rope_string_concat();
+void test_rope_sets_union();
 
 int main() {
 
   test_rope_sum();
   test_rope_int_sum();
-  test_rope_string_concat();
   test_rope_sets_union();
+  test_rope_string_concat();
 
   return 0;
 }
@@ -18,7 +24,7 @@ int main() {
 
 void test_rope_sum() {
 
-  std::vector<int> ropeValues = { 3, 7, -1, -1, 9};
+  std::vector<int> ropeValues = { 3, 7, -1, -1, 9, 10, 11, 2, -1 };
   RopeSum rope = RopeSum(ropeValues.size());
 
   
@@ -29,7 +35,12 @@ void test_rope_sum() {
   for (int i = 0 ; i < ropeValues.size() ; i++) 
     assert(rope.interval_sum(i, i + 1) == ropeValues.at(i));
 
+  
   assert(rope.interval_sum(1,4) == 5);
+  assert(rope.interval_sum(1,1) == 0);
+  assert(rope.interval_sum(0, ropeValues.size()) == 39 );
+
+  printf("[PASS] Test rope sum\n");
 }
 
 
@@ -42,7 +53,7 @@ struct Sum {
 
 void test_rope_int_sum() {
 
-  std::vector<int> ropeValues = { 3, 7, -1, -1, 9};
+  std::vector<int> ropeValues = { 3, 7, -1, -1, 9 };
   Rope<Sum> ropeSum = Rope<Sum>(ropeValues.size());
 
   for (int i = 0 ; i < ropeValues.size() ; i++) 
@@ -53,6 +64,8 @@ void test_rope_int_sum() {
     assert(ropeSum.query(i, i + 1) == ropeValues.at(i));
 
   assert(ropeSum.query(1,4) == 5);
+
+  printf("[PASS] Test rope int sum\n");
 }
 
 struct Concat {
@@ -74,8 +87,10 @@ void test_rope_string_concat() {
   for (int i = 0 ; i < ropeValues.size() ; i++) 
     assert(ropeConcat.query(i, i + 1) == ropeValues.at(i));
 
-  assert(ropeConcat.query(0, 6) == "Hola somos Marto y Octa");
+  assert(ropeConcat.query(0, 5) == "Hola somos Marto y Octa");
   assert(ropeConcat.query(1, 5) == "somos Marto y ");
+
+  printf("[PASS] Test rope string concat\n");
 }
 
 
@@ -94,13 +109,8 @@ struct Union {
 
 void test_rope_sets_union() {
 
-  std::vector<std::set<int>> ropeValues =
-  {
-    std::set<int>() = {1}, 
-    std::set<int>() = {2}, 
-    std::set<int>() = {3}, 
-    std::set<int>() = {4}, 
-    std::set<int>() = {5}, 
+  std::vector<std::set<int>> ropeValues = {
+    {1}, {2}, {3}, {4}, {5}
   };
 
   Rope<Union> ropeUnion = Rope<Union>(ropeValues.size());
@@ -112,8 +122,10 @@ void test_rope_sets_union() {
   for (int i = 0 ; i < ropeValues.size() ; i++) 
     assert(ropeUnion.query(i, i + 1) == ropeValues.at(i));
 
-  std::set<int> set_test_1 = std::set<int>() = { 1, 2, 3, 4, 5 };
-  std::set<int> set_test_2 = std::set<int>() = { 2, 3, 4 };
-  assert(ropeUnion.query(0, 6) == set_test_1);
+  std::set<int> set_test_1 = { 1, 2, 3, 4, 5 };
+  std::set<int> set_test_2 = { 2, 3, 4 };
+  assert(ropeUnion.query(0, 5) == set_test_1);
   assert(ropeUnion.query(1, 5) == set_test_2);
+    
+  printf("[PASS] Test rope sets union\n");
 }

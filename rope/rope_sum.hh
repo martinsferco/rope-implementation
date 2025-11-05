@@ -25,10 +25,10 @@ public:
 private:
 
   std::vector<int> data;
-  void update_aux(int nodo, int l_, int r_, int i, int x);
+  int size;
+
+  void update_aux(int node, int l_, int r_, int i, int x);
   int interval_sum_aux(int node, int l_, int r_, int l, int r);
-  int left_child(int node);
-  int right_child(int node);
 };
 
 #endif // __ROPE_SUM_HH__

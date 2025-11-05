@@ -1,14 +1,23 @@
 #include "rope_sum.hh"
+#include <cstdio>
+
+#define LEFT(node) (2 * node + 1)
+#define RIGHT(node) (2 * node + 2)
 
 RopeSum::RopeSum(int n)
 {
-  data = std::vector<int>(n);
+  data = std::vector<int>(2 * n + 1);
+
+  size = n;
+
+   for (int i = 0 ; i < data.size() ; i++) 
+    data.at(i) = 0;
 }
 
 void
 RopeSum::update(int i, int x)
 {
-  RopeSum::update_aux(0, 0, data.size(), i, x);
+  RopeSum::update_aux(0, 0, size, i, x);
 }
 
 void 
@@ -28,17 +37,18 @@ RopeSum::update_aux(int node, int l_, int r_, int i, int x)
 
   int m = (l_ + r_) / 2;
 
-  update_aux(left_child(node), l_, m, i, x);
-  update_aux(right_child(node), m, r_, i, x);
+  update_aux(LEFT(node), l_, m , i, x);
+  update_aux(RIGHT(node), m, r_, i, x);
 
-  data[node] = data[left_child(node)] + data[right_child(node)];
+  
+  data[node] = data[LEFT(node)] + data[RIGHT(node)];
 }
 
 
 int 
 RopeSum::interval_sum(int l, int r) 
 {
-  return interval_sum_aux(0, 0, data.size(), l, r);
+  return interval_sum_aux(0, 0, size, l, r);
 }
 
 
@@ -53,14 +63,9 @@ RopeSum::interval_sum_aux(int node, int l_, int r_, int l, int r) {
 
   int m = (l_ + r_) / 2;
 
-  return interval_sum_aux(left_child(node), l_, m, l, r) +
-         interval_sum_aux(right_child(node), m, r_, l, r);
+  return interval_sum_aux(LEFT(node), l_, m, l, r) +
+         interval_sum_aux(RIGHT(node), m, r_, l, r);
 }
 
 
-inline int
-RopeSum::left_child(int nodo) { return 2 * nodo + 1; }
-
-inline int
-RopeSum::right_child(int nodo) { return 2 * nodo + 2; }
 
