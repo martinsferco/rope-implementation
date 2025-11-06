@@ -1,4 +1,5 @@
 #include "rope_sum.hh"
+#include <cassert>
 #include <cstdio>
 
 #define LEFT(node) (2 * node + 1)
@@ -6,11 +7,14 @@
 
 RopeSum::RopeSum(int n)
 {
-  data = std::vector<int>(2 * n + 1);
+  assert(n > 0);
+  
+  size = 1;
+  while (size < n) size = size << 1;
 
-  size = n;
+  data = std::vector<int>(2 * size + 1);
 
-   for (int i = 0 ; i < data.size() ; i++) 
+  for (int i = 0 ; i < data.size() ; i++) 
     data.at(i) = 0;
 }
 

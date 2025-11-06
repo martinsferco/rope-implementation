@@ -1,4 +1,5 @@
 #include <concepts>
+#include <cassert>
 #include <vector>
 
 #define LEFT(node) (2 * node + 1)
@@ -43,8 +44,12 @@ template<typename Op>
 requires Monoidal<Op>
 Rope<Op>::Rope(int n)
 {
-  data = std::vector<typename Op::Value>(2 * n + 1);
-  size = n;
+  assert(n > 0);
+  
+  size = 1;
+  while (size < n) size = size << 1;
+
+  data = std::vector<typename Op::Value>(2 * size + 1);
 
   for (int i = 0 ; i < data.size() ; i++) 
     data.at(i) = Op::neut();
