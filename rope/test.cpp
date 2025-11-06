@@ -64,6 +64,13 @@ void test_rope_int_sum() {
     assert(ropeSum.query(i, i + 1) == ropeValues.at(i));
 
   assert(ropeSum.query(1,4) == 5);
+  ropeSum.update(1,10);
+  assert(ropeSum.query(1,4) == 8);
+
+  assert(ropeSum.query(1,1) == 0);
+  assert(ropeSum.query(1,0) == 0);
+
+  assert(ropeSum.query(1,0) == 0);
 
   printf("[PASS] Test rope int sum\n");
 }
@@ -88,7 +95,9 @@ void test_rope_string_concat() {
     assert(ropeConcat.query(i, i + 1) == ropeValues.at(i));
 
   assert(ropeConcat.query(0, 5) == "Hola somos Marto y Octa");
-  assert(ropeConcat.query(1, 5) == "somos Marto y ");
+  assert(ropeConcat.query(1, 4) == "somos Marto y ");
+
+  assert(ropeConcat.query(1,1) == "");
 
   printf("[PASS] Test rope string concat\n");
 }
@@ -125,7 +134,9 @@ void test_rope_sets_union() {
   std::set<int> set_test_1 = { 1, 2, 3, 4, 5 };
   std::set<int> set_test_2 = { 2, 3, 4 };
   assert(ropeUnion.query(0, 5) == set_test_1);
-  assert(ropeUnion.query(1, 5) == set_test_2);
+  assert(ropeUnion.query(1, 4) == set_test_2);
+
+  assert(ropeUnion.query(1,1) == std::set<int>());
     
   printf("[PASS] Test rope sets union\n");
 }
