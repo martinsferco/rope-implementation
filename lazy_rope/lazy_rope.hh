@@ -20,7 +20,7 @@ public:
 private:
   std::vector<typename Op::Value> data;
   std::vector<typename Op::Update> lazy;
-
+  int size;
 };
 
 
@@ -28,8 +28,19 @@ template <typename Op>
 requires LazyUpdate<Op>
 LazyRope<Op>::LazyRope(int n)
 {
-  data = std::vector<typename Op::Value>(n);
-  lazy = std::vector<typename Op::Update>(n);
+  assert(n > 0);
+  
+  size = 1;
+  while (size < n) size = size << 1;
+
+  data = std::vector<typename Op::Value>(2 * size - 1);
+  lazy = std::vector<typename Op::Value>(2 * size - 1);
+
+  for (int i = 0 ; i < data.size() ; i++) {
+    lazy.at(i) = Op::neut();
+    data.at(i) = Op::neut();
+  }
+
 }
 
 

@@ -12,7 +12,7 @@ RopeSum::RopeSum(int n)
   size = 1;
   while (size < n) size = size << 1;
 
-  data = std::vector<int>(2 * size + 1);
+  data = std::vector<int>(2 * size - 1);
 
   for (int i = 0 ; i < data.size() ; i++) 
     data.at(i) = 0;
