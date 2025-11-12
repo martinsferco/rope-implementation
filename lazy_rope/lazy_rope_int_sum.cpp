@@ -1,8 +1,7 @@
 #include "lazy_rope_int_sum.hh"
 #include <assert.h>
 
-#define LEFT(node) (2 * node + 1)
-#define RIGHT(node) (2 * node + 2)
+#include "../utils/utils.hh"
 
 LazyRopeIntSum::LazyRopeIntSum(int n)
 { 
@@ -34,7 +33,6 @@ LazyRopeIntSum::propagate(int node, int l_, int r_) {
     value[node] = value[node] + lazy[node] * len;
     lazy[node] = 0;
 }
-
 
 
 

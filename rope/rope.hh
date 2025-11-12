@@ -2,20 +2,8 @@
 #include <cassert>
 #include <vector>
 
-#define LEFT(node) (2 * node + 1)
-#define RIGHT(node) (2 * node + 2)
-
-template<typename Op>
-concept Monoidal = requires(Op::Value x, Op::Value y) {
-  
-  typename Op::Value;
-  { Op::op(x, y) } -> std::same_as<typename Op::Value>; 
-  // T::op(x, T::op(y, z)) == T::op(T::op(x, y), z)
-  { Op::neut()   } -> std::same_as<typename Op::Value>; 
-  // T::op(x, T::neut()) == x
-  // T::op(T::neut(), x) == x
-};
-
+#include "../concepts/monoidal.hh"
+#include "../utils/utils.hh"
 
 template<typename Op>
 requires Monoidal<Op>

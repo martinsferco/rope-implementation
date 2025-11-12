@@ -3,11 +3,15 @@
 
 
 class LazyRopeIntSum {
+
 public:
+
     LazyRopeIntSum(int n);
     int query(int l, int r);
     void update(int l, int r, int upd);
+    
 private:
+
     std::vector<int> value; 
     std::vector<int> lazy;
     int size;
