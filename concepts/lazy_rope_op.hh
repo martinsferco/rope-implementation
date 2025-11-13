@@ -7,4 +7,4 @@ concept LazyRopeOp =
 
   requires { Monoidal<typename T::Value>; } &&
 
-  requires { Monoidal<typename T::Update>; }; // Realmente necesitamos asociatividad?
+  requires { Monoidal<typename T::Update>; }; 
