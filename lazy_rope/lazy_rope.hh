@@ -1,12 +1,12 @@
 #include <concepts>
 #include <vector>
 
-#include "../concepts/lazy_update.hh"
+#include "../concepts/lazy_rope_op.hh"
 #include "../utils/utils.hh"
 
 
 template <typename Op>
-requires LazyUpdate<Op>
+requires LazyRopeOp<Op>
 class LazyRope {
 
 public:
@@ -29,7 +29,7 @@ private:
 
 
 template <typename Op>
-requires LazyUpdate<Op>
+requires LazyRopeOp<Op>
 LazyRope<Op>::LazyRope(int n)
 {
   assert(n > 0);
@@ -49,7 +49,7 @@ LazyRope<Op>::LazyRope(int n)
 
 
 template <typename Op>
-requires LazyUpdate<Op>
+requires LazyRopeOp<Op>
 typename Op::Value::Value
 LazyRope<Op>::query(int l, int r)
 {
@@ -57,7 +57,7 @@ LazyRope<Op>::query(int l, int r)
 }
 
 template <typename Op>
-requires LazyUpdate<Op>
+requires LazyRopeOp<Op>
 typename Op::Value::Value
 LazyRope<Op>::query_impl(int node, int l_, int r_, int l, int r)
 {
@@ -77,7 +77,7 @@ LazyRope<Op>::query_impl(int node, int l_, int r_, int l, int r)
 
 
 template <typename Op>
-requires LazyUpdate<Op>
+requires LazyRopeOp<Op>
 void
 LazyRope<Op>::update(int l, int r, typename Op::Update::Value upd)
 {
@@ -85,7 +85,7 @@ LazyRope<Op>::update(int l, int r, typename Op::Update::Value upd)
 }
 
 template <typename Op>
-requires LazyUpdate<Op>
+requires LazyRopeOp<Op>
 void
 LazyRope<Op>::update_impl(int node, int l_, int r_, int l, int r, typename Op::Update::Value upd)
 {
@@ -104,7 +104,7 @@ LazyRope<Op>::update_impl(int node, int l_, int r_, int l, int r, typename Op::U
 
 
 template <typename Op>
-requires LazyUpdate<Op>
+requires LazyRopeOp<Op>
 void
 LazyRope<Op>::propagate(int node, int l_, int r_)
 {

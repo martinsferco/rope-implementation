@@ -10,8 +10,6 @@ concept LazyUpdate =
   requires (typename T::Update::Value up, typename T::Value::Value val, int len)
   {
     { T::apply(up, val, len) } -> std::same_as<typename T::Value::Value>;
-  } &&
+  };
 
-  requires { Monoidal<typename T::Value>; } &&
 
-  requires { Monoidal<typename T::Update>; }; // Realmente necesitamos asociatividad?
